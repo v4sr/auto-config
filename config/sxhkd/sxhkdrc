@@ -1,0 +1,229 @@
+#
+# wm independent hotkeys
+#
+
+# terminal emulator
+super + Return
+    alacritty --config-file /home/v4sr/.config/alacritty/alacritty.yml -e $SHELL -lc "tmux -u -2"
+
+# program launcher
+super + d
+	rofi -show drun run window ssh
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+# close and kill
+super + {_,shift + }w
+	bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest window
+super + g
+	bspc node -s biggest.window
+
+#
+# state/flags
+#
+
+# set the window state
+super + {shift,t} + {t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+#super + {p,b,comma,period}
+#	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous window in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+#super + {grave,Tab}
+#	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+
+super + alt + m
+	/home/v4sr/.config/bspwm/scripts/monitor_swap
+
+# preselect
+#
+
+# preselect the direction
+#super + alt + {h,j,k,l}
+#	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+#super + alt + {1-9}
+#	bspc node -o 0.{1-9}
+#
+# cancel the preselection for the focused node
+#super + alt + space
+#	bspc node -p cancel
+#
+# cancel the preselection for the focused desktop
+#super + ctrl + shift + space
+#	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + ctrl + shift + {h,j,k,l}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+
+# CUSTOM
+alt + super + {h,j,k,l}
+    /home/v4sr/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+
+# Open firefox
+super + shift + f
+    firejail /opt/firefox/firefox
+
+# Slimlock
+super + shift + x
+    slimlock
+
+# FileZilla
+super + ctrl + f
+    /home/v4sr/.config/bin/fz-switch.sh
+
+#***************************************************************
+# Tartarus V2 Binding
+#***************************************************************
+
+# Help - Mouse Wheel
+super + ctrl + h
+    /home/v4sr/.config/bin/tartarusV2_help.sh
+                    
+# Ranger - 01
+super + ctrl + 1
+    alacritty --config-file /home/v4sr/.config/alacritty/alacritty.yml -e $SHELL -lc "ranger /home/v4sr"
+
+# Calculadora - 02
+super + ctrl + 2
+    mate-calculator
+
+# Obsidian - 03
+super + ctrl + 3
+    obsidian
+  
+# Signal - 04
+super + ctrl + 4
+    signal-desktop
+ 
+# Flameshot - 05
+super + ctrl + 5
+    /home/v4sr/.config/bin/fs-switch.sh
+
+# LibreOffice - 06
+super + ctrl + 6
+    libreoffice
+
+# Lunar NeoVim - 07
+super + ctrl + 7
+    alacritty --config-file /home/v4sr/.config/alacritty/alacritty.yml -e $SHELL -lc "/home/v4sr/.local/bin/lvim"
+
+# Pluma - 08
+super + ctrl + 8
+    pluma
+
+# Gimp - 09
+super + ctrl + 9
+    gimp
+
+# input-remapper-gtk - 10
+super + ctrl + 0
+    alacritty --config-file /home/v4sr/.config/alacritty/alacritty.yml -e $SHELL -lc "sudo input-remapper-gtk"
+
+# Polychromatic - 11
+super + ctrl + shift + 1
+    polychromatic-controller
+
+# RazerGenie - 12
+super + ctrl + shift + 2
+    razergenie
+
+# AUP (Auto Update and Parrot upgrade) - 13
+super + ctrl + shift + 3
+    alacritty --config-file /home/v4sr/.config/alacritty/alacritty.yml -e $SHELL -lc "/home/v4sr/.config/bin/AUP.sh"
+
+# nm-switch - 14
+super + ctrl + shift + 4
+    /home/v4sr/.config/bin/nm-switch.sh
+
+# Htop - 15
+super + ctrl + shift + 5
+    alacritty --config-file /home/v4sr/.config/alacritty/alacritty.yml -e $SHELL -lc "htop"
+
+# Unassigned - 16
+super + ctrl + shift + 6
+    notify-send "Razer Tartarus V2 Error" "Unassigned key 16" -u critical -i razer_logo -t 5000
+
+# Unassigned - 17
+super + ctrl + shift + 7
+    notify-send "Razer Tartarus V2 Error" "Unassigned key 17" -u critical -i razer_logo -t 5000
+
+# Unassigned - 18
+super + ctrl + shift + 8
+    notify-send "Razer Tartarus V2 Error" "Unassigned key 18" -u critical -i razer_logo -t 5000
+
+# Unassigned - 19
+super + ctrl + shift + 9
+    notify-send "Razer Tartarus V2 Error" "Unassigned key 19" -u critical -i razer_logo -t 5000
+
+# Unassigned - 20
+super + ctrl + shift + 0
+    notify-send "Razer Tartarus V2 Error" "Unassigned key 20" -u critical -i razer_logo -t 5000

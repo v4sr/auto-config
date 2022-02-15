@@ -1,0 +1,50 @@
+#!/bin/bash
+
+Black="\e[0;30m"
+Red="\e[0;31m"
+Green="\e[0;32m"
+Yellow="\e[0;33m"
+Blue="\e[0;34m"
+Purple="\e[0;35m"
+Cyan="\e[0;36m"
+White="\e[0;37m"
+
+OPTION=$1
+
+if [ "$OPTION" = "-c" ]; then
+	printf "$Yellow[*] Enable output Screens:\n\n";
+
+	xrandr -q | grep ' connected' | grep -Eo '^[^ ]+' | grep -v eDP;
+
+	printf "\n$Yellow[?] Choose the screen to connect: ";
+	read;
+
+	xrandr --output eDP --auto --primary --output $REPLY --mode 1920x1080 --auto --above eDP;
+
+	printf "\n$Green$REPLY succesfully connected\n";
+	bspc wm -r;
+
+elif [ "$OPTION" = "-d" ]; then
+	printf "\n$Purple[*] Enable output Screens:\n\n";
+	xrandr -q | grep connected | grep -Eo '^[^ ]+' | grep -v eDP;
+
+	printf "\n$Purple[?] Choose the screen to disconnect: ";
+	read;
+
+	if [ "$REPLY" = "eDP" ]; then
+		printf "$Red[!] Error: Non valid screen\n";
+	else
+		xrandr --output $REPLY --off --output eDP --auto --primary;
+	fi;
+
+	printf "\n$Green$REPLY succesfully disconnected\n";
+	bspc wm -r;
+
+elif [ "$OPTION" = "--help" ]; then
+	printf "\nPossible arguments are:\n";
+	printf "\t-c      ==>   \"Connect screen\"\n";
+	printf "\t-d      ==>   \"Disconnect screen\"\n";
+
+else
+	printf "$Red[!] Invalid arguments use --help for more information\n";
+fi
