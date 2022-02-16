@@ -51,7 +51,7 @@ ProjDIR
 sudo cp -R fonts /usr/local/share/
 sudo cp -R icons /usr/share/
 
-python cpAUTO.py -c "/config/xrandr /config/bin"
+python cpAUTO.py -c "config/xrandr /config/bin"
 sudo updatedb
 ./clearTERM.sh
 
@@ -72,7 +72,7 @@ make
 sudo make install
 
 ProjDIR
-python cpAUTO.py -c "/config/bspwm /config/sxhkd"
+python cpAUTO.py -c "config/bspwm /config/sxhkd"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Polybar${Reset}\n"
@@ -86,7 +86,7 @@ make -j$(nproc)
 sudo make install
 
 ProjDIR
-python cpAUTO.py -c "/config/polybar"
+python cpAUTO.py -c "config/polybar"
 
 ConfDIR
 sudo cp polybar/fonts/* /usr/share/fonts/truetype/
@@ -106,7 +106,7 @@ ninja -C build
 sudo ninja -C build install
 
 ProjDIR
-python cpAUTO.py -c "/config/picom"
+python cpAUTO.py -c "config/picom"
 sudo updatedb
 ./clearTERM.sh
 
@@ -114,7 +114,7 @@ printf "${BgBlue}${BdGreen}[+] Installing Rofi${Reset}\n"
 sudo apt install rofi
 
 ProjDIR
-python cpAUTO.py -c "/config/rofi"
+python cpAUTO.py -c "config/rofi"
 usermod --shell /usr/bin/zsh $USR
 usermod --shell /usr/bin/zsh root
 
@@ -175,9 +175,9 @@ HomeDIR
 sudo ln -s -f .zshrc /root/.zshrc
 
 ProjDIR
-python cpAUTO.py -u "/.p10k.zsh"
+python cpAUTO.py -u ".p10k.zsh"
 sudo su
-python cpAUTO.py -u "/.p10k.zsh"
+python cpAUTO.py -u ".p10k.zsh"
 su $USR
 sudo updatedb
 
@@ -190,7 +190,7 @@ git clone https://github.com/sezanzeb/input-remapper.git
 cd input-remapper && ./scripts/build.sh
 sudo apt install ./dist/input-remapper-1.4.0.deb
 
-python cpAUTO.py -c "/config/alacritty"
+python cpAUTO.py -c "config/alacritty"
 sudo updatedb
 
 ProjDIR
@@ -216,13 +216,13 @@ ProjDIR
 cp -R /zsh-plugins /usr/share
 chown $USR:$USR /usr/share/zsh-plugins
 
-python cpAUTO.py -c "/config/input-remapper"
+python cpAUTO.py -c "config/input-remapper"
 sudo updatedb
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Ranger${Reset}\n"
 sudo apt-get install ranger
-python cpAUTO.py -cr"/config/ranger"
+python cpAUTO.py -cr"config/ranger"
 sudo updatedb
 ./clearTERM.sh
 
