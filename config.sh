@@ -253,24 +253,8 @@ upx brute fastTCPScan
 ProjDIR
 ./clearTERM.sh
 
-printf "${BgBlue}${BdGreen}[+] Installing Firefox${Reset}\n"
-cd /opt
-sudo wget https://www.mozilla.org/es-ES/firefox/download/thanks/
-tar -xvf firefox*
-sudo rm -rf firefox-*
-
-ProjDIR
-./clearTERM.sh
-
-printf "${BgBlue}${BdGreen}[+] Installing FileZilla${Reset}\n"
-cd /opt
-sudo wget https://dl2.cdn.filezilla-project.org/client/FileZilla_3.58.0_x86_64-linux-gnu.tar.bz2?h=BHdxTg1l-jbMEXhdUyQWCw&x=1644944203
-tar -xvf FileZilla_*
-sudo rm - FileZilla_*
-
-ProjDIR
-./clearTERM.sh
-
 printf "${BgGreen}${BdBlack}[*] autoSETUP succesfuly completed${Reset}\n"
 printf "${BdGreen}Tasks to do:\n"
+printf "- Install Firefox"
 printf "- Configure Firefox (Foxyproxy, wappalyzer, privacity, downloads...)"
+printf "- Install FileZilla FTP Client"
