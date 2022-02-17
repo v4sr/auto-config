@@ -160,6 +160,7 @@ sudo mv fastTCPScan /usr/bin
 
 printf "${BgGreen}${BdBlack}[*] autoSETUP succesfuly completed${Reset}\n"
 printf "${BdGreen}Tasks to do:\n"
+printf "- Exec config-term.sh"
 printf "- Install Firefox"
 printf "- Configure Firefox (Foxyproxy, wappalyzer, privacity, downloads...)"
 printf "- Install FileZilla FTP Client"
