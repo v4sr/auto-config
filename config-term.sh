@@ -40,7 +40,9 @@ mkdir -p ~/.bash_completion
 cp extra/completions/alacritty.bash ~/.bash_completion/alacritty
 echo "source ~/.bash_completion/alacritty" >> ~/.bashrc
 
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 cd ../auto-config
+python cpAUTO -c "config/alacritty"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing zsh and powerlevel10k theme${Reset}\n"
@@ -52,7 +54,7 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 
 sudo ln -s -f /home/$USR/.zshrc /root/.zshrc
 
-printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 python cpAUTO.py -u ".p10k.zsh"
 sudo su
 python cpAUTO.py -u ".p10k.zsh"

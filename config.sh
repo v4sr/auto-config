@@ -26,6 +26,7 @@ sudo parrot-upgrade
 sudo cp -R fonts /usr/local/share/
 sudo cp -R icons /usr/share/
 
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 python cpAUTO.py -c "config/xrandr config/bin"
 ./clearTERM.sh
 
@@ -47,6 +48,7 @@ cd sxhkd
 make
 sudo make install
 
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 cd ../auto-config
 python cpAUTO.py -c "config/bspwm config/sxhkd"
 ./clearTERM.sh
@@ -62,7 +64,7 @@ make -j$(nproc)
 sudo make install
 cd ../../auto-config
 
-printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 python cpAUTO.py -c "config/polybar"
 
 sudo cp ./config/polybar/fonts/* /usr/share/fonts/truetype/
@@ -79,17 +81,17 @@ ninja -C build
 sudo ninja -C build install
 cd ../auto-config
 
-printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 python cpAUTO.py -c "config/picom"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Rofi${Reset}\n"
 sudo apt install rofi
 
-printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 python cpAUTO.py -c "config/rofi"
-usermod --shell /usr/bin/zsh $USR
-usermod --shell /usr/bin/zsh root
+sudo usermod --shell /usr/bin/zsh $USR
+sudo usermod --shell /usr/bin/zsh root
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing slim and slimlock${Reset}\n"
@@ -103,7 +105,7 @@ sudo make
 sudo make install
 cd ../auto-config
 
-printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 sudo cp -R config/slim /usr/share/
 sudo cp -R etc/* /etc
 ./clearTERM.sh
@@ -115,7 +117,7 @@ cd input-remapper && ./scripts/build.sh
 sudo apt install ./dist/input-remapper-1.4.0.deb
 
 cd ../auto-config
-printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 python cpAUTO.py -c "config/input-remapper"
 ./clearTERM.sh
 
@@ -142,7 +144,7 @@ chown $USR:$USR /usr/share/zsh-plugins
 printf "${BgBlue}${BdGreen}[+] Installing Ranger${Reset}\n"
 sudo apt-get install ranger
 
-printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 python cpAUTO.py -cr"config/ranger"
 ./clearTERM.sh
 
