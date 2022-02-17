@@ -5,8 +5,10 @@
 # Bold Colors
 BdBlack="\e[1;30m"
 BdGreen="\e[1;32m"
+BdYellow="\e[1;33m"
 
 # Background Colors
+BgBlack="\e[40m"
 BgGreen="\e[42m"
 BgBlue="\e[44m"
 
@@ -51,8 +53,7 @@ ProjDIR
 sudo cp -R fonts /usr/local/share/
 sudo cp -R icons /usr/share/
 
-python cpAUTO.py -c "config/xrandr /config/bin"
-sudo updatedb
+python cpAUTO.py -c "config/xrandr config/bin"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing bspwm and sxhkd${Reset}\n"
@@ -67,12 +68,13 @@ sudo make install
 sudo apt install bspwm
 
 printf "${BgGreen}${BdRed}[+] sxhkd${Reset}\n"
-cd ../sxhkd/
+DownDIR
+cd sxhkd/
 make
 sudo make install
 
 ProjDIR
-python cpAUTO.py -c "config/bspwm /config/sxhkd"
+python cpAUTO.py -c "config/bspwm config/sxhkd"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Polybar${Reset}\n"
@@ -86,12 +88,12 @@ make -j$(nproc)
 sudo make install
 
 ProjDIR
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
 python cpAUTO.py -c "config/polybar"
 
 ConfDIR
 sudo cp polybar/fonts/* /usr/share/fonts/truetype/
 sudo fc-cache -v
-sudo updatedb
 
 ProjDIR
 ./clearTERM.sh
@@ -106,19 +108,19 @@ ninja -C build
 sudo ninja -C build install
 
 ProjDIR
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
 python cpAUTO.py -c "config/picom"
-sudo updatedb
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Rofi${Reset}\n"
 sudo apt install rofi
 
 ProjDIR
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
 python cpAUTO.py -c "config/rofi"
 usermod --shell /usr/bin/zsh $USR
 usermod --shell /usr/bin/zsh root
 
-sudo updatedb
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing slim and slimlock${Reset}\n"
@@ -132,9 +134,9 @@ sudo make
 sudo make install
 
 ProjDIR
-sudo cp -R ./config/slim /usr/share/
-sudo cp -R ./etc/* /etc
-sudo updatedb
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+sudo cp -R config/slim /usr/share/
+sudo cp -R etc/* /etc
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing alacritty terminal${Reset}\n"
@@ -175,11 +177,11 @@ HomeDIR
 sudo ln -s -f .zshrc /root/.zshrc
 
 ProjDIR
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
 python cpAUTO.py -u ".p10k.zsh"
 sudo su
 python cpAUTO.py -u ".p10k.zsh"
 su $USR
-sudo updatedb
 
 ProjDIR
 ./clearTERM.sh
@@ -190,8 +192,8 @@ git clone https://github.com/sezanzeb/input-remapper.git
 cd input-remapper && ./scripts/build.sh
 sudo apt install ./dist/input-remapper-1.4.0.deb
 
-python cpAUTO.py -c "config/alacritty"
-sudo updatedb
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
+python cpAUTO.py -c "config/input-remapper"
 
 ProjDIR
 ./clearTERM.sh
@@ -216,17 +218,14 @@ ProjDIR
 cp -R /zsh-plugins /usr/share
 chown $USR:$USR /usr/share/zsh-plugins
 
-python cpAUTO.py -c "config/input-remapper"
-sudo updatedb
-./clearTERM.sh
-
 printf "${BgBlue}${BdGreen}[+] Installing Ranger${Reset}\n"
 sudo apt-get install ranger
+
+printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
 python cpAUTO.py -cr"config/ranger"
-sudo updatedb
 ./clearTERM.sh
 
-printf "${BgBlue}${BdGreen}[+] Installing Ranger${Reset}\n"
+printf "${BgBlue}${BdGreen}[+] Installing Tmux${Reset}\n"
 
 cd
 git clone https://github.com/gpakosz/.tmux.git
