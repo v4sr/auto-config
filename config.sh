@@ -19,7 +19,7 @@ Reset="\e[0m"
 USR=$(whoami)
 
 function Location() {
-  directoryx="$(dirname -- $(readlink -fn -- $0; echo x))"
+  directoryx="$(dirname -- $(readlink -fn -- ${BASH_SOURCE}; echo x))"
   directory="${directoryx%x}"
   echo "$directory"
 }
