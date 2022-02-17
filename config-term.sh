@@ -18,37 +18,11 @@ Reset="\e[0m"
 
 USR=$(whoami)
 
-function Location() {
-  directoryx="$(dirname -- $(readlink -fn -- $0; echo x))"
-  directory="${directoryx%x}"
-  echo "$directory"
-}
-
-ProLoc="$(Location)"
-
-function ProjDIR() {
-  cd "$ProjLoc"
-}
-
-function HomeDIR() {
-  cd
-} 
-  
-function DownDIR() {
-  HomeDIR
-  cd "Descargas"
-} 
-  
-function ConfDIR() {
-  HomeDIR
-  cd ".config"
-} 
-
 printf "${BgBlue}${BdGreen}[+] Installing alacritty terminal${Reset}\n"
 sudo apt-get --purge remove rustc
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-DownDIR
+cd ..
 git clone https://github.com/alacritty/alacritty.git
 cd alacritty
 cargo build --release
@@ -66,7 +40,7 @@ mkdir -p ~/.bash_completion
 cp extra/completions/alacritty.bash ~/.bash_completion/alacritty
 echo "source ~/.bash_completion/alacritty" >> ~/.bashrc
 
-ProjDIR
+cd ../auto-config
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing zsh and powerlevel10k theme${Reset}\n"
@@ -76,24 +50,17 @@ sudo usermod --shell /usr/bin/zsh root
 
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 
-alacritty -e zsh
+sudo ln -s -f /home/$USR/.zshrc /root/.zshrc
 
-HomeDIR
-sudo ln -s -f .zshrc /root/.zshrc
-
-ProjDIR
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}/n"
 python cpAUTO.py -u ".p10k.zsh"
 sudo su
 python cpAUTO.py -u ".p10k.zsh"
 su $USR
-
-ProjDIR
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Tmux${Reset}\n"
-
-cd
+cd 
 git clone https://github.com/gpakosz/.tmux.git
 ln -s -f .tmux/.tmux.conf
 cp .tmux/.tmux.conf.local .
