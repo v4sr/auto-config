@@ -7,7 +7,8 @@ def get_arguments():
     parser = optparse.OptionParser()
     parser.add_option("-r", "--roothome", dest="roothome", help="Root home directory as destination")
     parser.add_option("-u", "--usrhome", dest="usrhome", help="User home directory as destination")
-    parser.add_option("-c", "--config", dest="config", help="Config directory as destination")
+    parser.add_option("-c", "--config", dest="config", help="User config directory as destination")
+    parser.add_option("-e", "--etc", dest="etc", help="etc directory as destination")
     parser.add_option("--desktop", dest="desktop", help="Desktop directory as destination")
     parser.add_option("--downloads", dest="downloads", help="Dowloads directory as destination")
 
@@ -51,14 +52,16 @@ usr = usr.replace('\n', "")
 roothome = "/root"
 usrhome = "/home/" + str(usr)
 config = usrhome + "/.config"
+etc = "/etc"
 downloads = usrhome + "/Descargas"
 desktop = usrhome + "/Desktop"
 
-for i in range(4):
+for i in range(6):
     switch = {
         "roothome": copy(options.roothome, roothome),
         "usrhome": copy(options.usrhome, usrhome),
         "config": copy(options.config, config),
+        "etc": copy(options.etc, etc),
         "downloads": copy(options.downloads, downloads),
         "desktop": copy(options.desktop, desktop),
     }
