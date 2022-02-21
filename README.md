@@ -2,10 +2,10 @@
 This script it is thought to use in Parrot OS. This is my OS configuration inspired in S4vitar OS configuration for pentesting.
 
 ## Desktop
-![[images/desk-example.png]]
+![Desktop example](/images/desk-example.png)
 
 ## Terminal
-![[images/term-example.png]]
+![Terminal example](/images/term-example.png)
 
 |   Type    |      Name      |        Location        |
 |:---------:|:--------------:|:----------------------:|
