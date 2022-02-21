@@ -29,7 +29,6 @@ sudo cp -R fonts /usr/local/share/
 sudo cp -R icons /usr/share/
 
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
-python cpAUTO.py -c "config/xrandr config/bin"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing bspwm and sxhkd${Reset}\n"
@@ -52,7 +51,6 @@ sudo make install
 
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 cd ../auto-config
-python cpAUTO.py -c "config/bspwm config/sxhkd"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Polybar${Reset}\n"
@@ -67,7 +65,6 @@ sudo make install
 cd ../../auto-config
 
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
-python cpAUTO.py -c "config/polybar"
 
 sudo cp ./config/polybar/fonts/* /usr/share/fonts/truetype/
 sudo fc-cache -v
@@ -84,14 +81,12 @@ sudo ninja -C build install
 cd ../auto-config
 
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
-python cpAUTO.py -c "config/picom"
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing Rofi${Reset}\n"
 sudo apt install rofi
 
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
-python cpAUTO.py -c "config/rofi"
 sudo usermod --shell /usr/bin/zsh $USR
 sudo usermod --shell /usr/bin/zsh root
 ./clearTERM.sh
@@ -110,6 +105,7 @@ cd ../auto-config
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
 sudo cp -R config/slim /usr/share/
 sudo cp -R etc/* /etc
+sudo rm -rf /usr/share/slim/themes/debian*
 ./clearTERM.sh
 
 printf "${BgBlue}${BdGreen}[+] Installing input-remapper${Reset}\n"
@@ -120,34 +116,12 @@ sudo apt install ./dist/input-remapper-1.4.0.deb
 
 cd ../auto-config
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
-python cpAUTO.py -c "config/input-remapper"
 ./clearTERM.sh
-
-printf "${BgBlue}${BdGreen}[+] Installing bat, lsd, fzf, sudo plugin${Reset}\n"
-cd ..
-wget https://github.com/sharkdp/bat/releases/download/v0.19.0/bat_0.19.0_amd64.deb
-sudo dpkg -i bat_0.19.0_amd64.deb
-
-wget https://github.com/Peltoche/lsd/releases/download/0.21.0/lsd_0.21.0_amd64.deb
-sudo dpkg -i lsd_0.21.0_amd64.deb
-
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-
-sudo su
-~/.fzf/install
-
-su $USR
-
-cd auto-config
-cp -R zsh-plugins /usr/share
-chown $USR:$USR /usr/share/zsh-plugins
 
 printf "${BgBlue}${BdGreen}[+] Installing Ranger${Reset}\n"
 sudo apt-get install ranger
 
 printf "${BgGreen}${BgRed}[=] Copying config files${Reset}\n\n"
-python cpAUTO.py -cr"config/ranger"
 ./clearTERM.sh
 
 su $USR
@@ -158,9 +132,33 @@ sudo cp -R whichSystem.py /usr/bin
 sudo go build -ldflags "-s -w" fastTCPScan.go
 upx brute fastTCPScan
 sudo mv fastTCPScan /usr/bin
+
+python multi-cp.py -c "config/polybar config/bspwm config/sxhkd config/rofi config/slim config/xrandr config/picom config/input-remapper config/bin"
 ./clearTERM.sh
 
-printf "${BgGreen}${BdBlack}[*] autoSETUP succesfuly completed${Reset}\n"
+
+printf "${BgBlue}${BdGreen}[+] Installing bat, lsd, fzf, sudo plugin${Reset}\n"
+cd ..
+
+cd auto-config
+cp -R zsh-plugins /usr/share
+chown $USR:$USR /usr/share/zsh-plugins
+
+wget https://github.com/sharkdp/bat/releases/download/v0.19.0/bat_0.19.0_amd64.deb
+sudo dpkg -i bat_0.19.0_amd64.deb
+
+wget https://github.com/Peltoche/lsd/releases/download/0.21.0/lsd_0.21.0_amd64.deb
+sudo dpkg -i lsd_0.21.0_amd64.deb
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+cd /root
+sudo git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+sudo ~/.fzf/install
+su $USR
+
+notify-send "${BgGreen}${BdBlack}[*] autoSETUP succesfuly completed${Reset}\n"
 printf "${BdGreen}Tasks to do:\n"
 printf "- Exec config-term.sh"
 printf "- Install Firefox"
